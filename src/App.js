@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
-import { initialState, reducer } from './Reducer';
-import Main from './pages/Main';
+import Dashboard from './components/Dashboard';
+import { initialState, reducer } from './components/reducer'
 
-export const stateContext = React.createContext();
+export const stateContext = React.createContext(initialState);
 
-const App = () => {
+function App() {
 
-  const [state, dispatchState] = React.useReducer(reducer,initialState);
+  const [{ users, posts, message }, dispatch] = React.useReducer(reducer, initialState);
 
   return (
     <div className="App">
-      <stateContext.Provider value={{state: state, dispatchState: dispatchState}}>
-        <Main />
+      <stateContext.Provider value={{message, users, posts, dispatch}}>
+        <Dashboard />
       </stateContext.Provider>
     </div>
   )
